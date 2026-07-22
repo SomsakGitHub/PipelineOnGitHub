@@ -19,11 +19,6 @@ jobs:
     - name: Select Xcode
       run: sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
 
-    - name: Install iOS Simulator
-      run: |
-        xcodebuild -downloadPlatform iOS
-        sudo xcodebuild -runFirstLaunch
-
     - name: SwiftFormat Check
       run: |
         brew install swiftformat
@@ -45,7 +40,7 @@ jobs:
         xcodebuild build \
           -scheme "${{ env.SCHEME }}" \
           -project "${{ env.PROJECT }}" \
-          -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.2' \
+          -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
           | xcpretty
 
     - name: Unit Test
@@ -53,7 +48,7 @@ jobs:
         xcodebuild test \
           -scheme "${{ env.SCHEME }}" \
           -project "${{ env.PROJECT }}" \
-          -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.2' \
+          -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
           -enableCodeCoverage YES \
           | xcpretty
 
@@ -66,7 +61,7 @@ jobs:
         xcodebuild analyze \
           -scheme "${{ env.SCHEME }}" \
           -project "${{ env.PROJECT }}" \
-          -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.2' \
+          -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
           | xcpretty
 
     - name: Periphery
