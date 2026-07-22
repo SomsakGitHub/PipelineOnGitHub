@@ -25,13 +25,6 @@ jobs:
       with:
         xcode-version: '16.2'
 
-    - name: Install iOS Simulator
-      uses: futureware-app/setup-simulator-runtime@v4
-      with:
-        action: install
-        platform: iOS
-        version: '18.2'
-
     - name: SwiftFormat Check
       run: |
         brew install swiftformat
@@ -53,20 +46,15 @@ jobs:
         xcodebuild build \
           -scheme "${{ env.SCHEME }}" \
           -project "${{ env.PROJECT }}" \
-          -destination 'generic/platform=iOS' \
+          -destination 'platform=macOS' \
           | xcpretty
 
     - name: Unit Test
       run: |
-        DESTINATION=$(xcrun simctl list devices available | grep "iPhone" | head -1 | sed 's/.*(\([A-Z0-9-]*\)).*/\1/')
-        if [ -z "$DESTINATION" ]; then
-          echo "No iOS Simulator found - skipping tests"
-          exit 0
-        fi
         xcodebuild test \
           -scheme "${{ env.SCHEME }}" \
           -project "${{ env.PROJECT }}" \
-          -destination "id=$DESTINATION" \
+          -destination 'platform=macOS' \
           -enableCodeCoverage YES \
           | xcpretty
 
@@ -79,7 +67,7 @@ jobs:
         xcodebuild analyze \
           -scheme "${{ env.SCHEME }}" \
           -project "${{ env.PROJECT }}" \
-          -destination 'generic/platform=iOS' \
+          -destination 'platform=macOS' \
           | xcpretty
 
     - name: Periphery
@@ -106,7 +94,7 @@ jobs:
         xcodebuild build \
           -scheme "${{ env.SCHEME }}" \
           -project "${{ env.PROJECT }}" \
-          -destination 'generic/platform=iOS'
+          -destination 'platform=macOS'
 
     - name: CodeQL Analyze
       uses: github/codeql-action/analyze@v3
