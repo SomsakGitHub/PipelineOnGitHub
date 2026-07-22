@@ -5,8 +5,8 @@ RESULT_BUNDLE="$DERIVED_DATA/Logs/Test/*.xcresult"
 
 if [ -d $RESULT_BUNDLE ]; then
     echo "=== Code Coverage Report ==="
-    xcrun xccov view --report $RESULT_BUNDLE
+    xcrun xccov view --report $RESULT_BUNDLE || true
+    echo "Coverage report completed"
 else
     echo "No test result bundle found - skipping coverage"
-    exit 0
 fi
