@@ -6,10 +6,6 @@ on:
   pull_request:
     branches: [ main ]
 
-permissions:
-  contents: read
-  security-events: write
-
 jobs:
   build-and-test:
     runs-on: macos-15
@@ -22,10 +18,6 @@ jobs:
 
     - name: Select Xcode
       run: sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
-
-    - name: Install iOS Simulator
-      run: |
-        xcodebuild -downloadPlatform iOS
 
     - name: SwiftFormat Check
       run: |
@@ -48,7 +40,7 @@ jobs:
         xcodebuild build \
           -scheme "${{ env.SCHEME }}" \
           -project "${{ env.PROJECT }}" \
-          -destination 'generic/platform=iOS Simulator' \
+          -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.2' \
           | xcpretty
 
     - name: Unit Test
@@ -56,7 +48,7 @@ jobs:
         xcodebuild test \
           -scheme "${{ env.SCHEME }}" \
           -project "${{ env.PROJECT }}" \
-          -destination 'platform=iOS Simulator,name=iPhone 16' \
+          -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.2' \
           -enableCodeCoverage YES \
           | xcpretty
 
@@ -69,7 +61,7 @@ jobs:
         xcodebuild analyze \
           -scheme "${{ env.SCHEME }}" \
           -project "${{ env.PROJECT }}" \
-          -destination 'generic/platform=iOS Simulator' \
+          -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.2' \
           | xcpretty
 
     - name: Periphery
@@ -85,10 +77,7 @@ jobs:
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-    - name: CodeQL Init
-      uses: github/codeql-action/init@v3
+    - name: CodeQL
+      uses: github/codeql-action/analyze@v3
       with:
         languages: swift
-
-    - name: CodeQL Analyze
-      uses: github/codeql-action/analyze@v3
