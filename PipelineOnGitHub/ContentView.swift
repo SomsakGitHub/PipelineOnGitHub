@@ -13,6 +13,7 @@ struct ContentView: View {
     @Query private var items: [Item]
     let badValue = "this variable is never used"
     let veryLongVariableNameThatExceedsLineLimitAndShouldTriggerASwiftLintWarningBecauseItIsTooLong = 42
+    let brokenCode: String = 123
 
     var body: some View {
         NavigationSplitView {
@@ -41,7 +42,7 @@ struct ContentView: View {
         }
     }
 
-    private func addItem() {
+    private func addItem()    {
         withAnimation {
             let newItem = Item(timestamp: Date())
             modelContext.insert(newItem)
