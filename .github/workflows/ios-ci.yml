@@ -9,7 +9,8 @@ on:
 jobs:
   build-and-test:
     runs-on: macos-15
-    scheme: PipelineOnGitHub
+    env:
+      SCHEME: PipelineOnGitHub
 
     steps:
     - uses: actions/checkout@v4
@@ -20,13 +21,13 @@ jobs:
     - name: Build
       run: |
         xcodebuild build \
-          -scheme "${{ env.scheme }}" \
+          -scheme "${{ env.SCHEME }}" \
           -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.2' \
           | xcpretty
 
     - name: Test
       run: |
         xcodebuild test \
-          -scheme "${{ env.scheme }}" \
+          -scheme "${{ env.SCHEME }}" \
           -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.2' \
           | xcpretty
