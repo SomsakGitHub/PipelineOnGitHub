@@ -24,7 +24,9 @@ jobs:
       run: sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
 
     - name: Install iOS Simulator
-      run: xcodebuild -downloadPlatform iOS
+      run: |
+        brew install xcodes
+        sudo xcodes runtimes install "iOS 18.2"
 
     - name: SwiftFormat Check
       run: |
