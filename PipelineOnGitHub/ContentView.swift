@@ -11,8 +11,6 @@ import SwiftUI
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
-    let badValue = "this variable is never used"
-    let veryLongVariableNameThatExceedsLineLimitAndShouldTriggerASwiftLintWarningBecauseItIsTooLong = 42
 
     var body: some View {
         NavigationSplitView {
