@@ -8,4 +8,6 @@
 --wrapcollections before-first
 --disable redundantRawValues
 --disable wrapMultilineStatementBraces
+--disable redundantAsync
+--disable redundantThrows
 --exclude Pods,Carthage,.build,DerivedData
