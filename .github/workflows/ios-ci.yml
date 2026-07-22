@@ -25,6 +25,11 @@ jobs:
       with:
         xcode-version: '16.2'
 
+    - name: Install iOS Platform
+      run: |
+        sudo xcodebuild -downloadPlatform iOS
+        sudo xcodebuild -runFirstLaunch
+
     - name: SwiftFormat Check
       run: |
         brew install swiftformat
@@ -46,7 +51,7 @@ jobs:
         xcodebuild build \
           -scheme "${{ env.SCHEME }}" \
           -project "${{ env.PROJECT }}" \
-          -destination 'platform=macOS,variant=Designed for iPad' \
+          -destination 'generic/platform=iOS' \
           | xcpretty
 
     - name: Unit Test
@@ -72,7 +77,7 @@ jobs:
         xcodebuild analyze \
           -scheme "${{ env.SCHEME }}" \
           -project "${{ env.PROJECT }}" \
-          -destination 'platform=macOS,variant=Designed for iPad' \
+          -destination 'generic/platform=iOS' \
           | xcpretty
 
     - name: Periphery
@@ -99,7 +104,7 @@ jobs:
         xcodebuild build \
           -scheme "${{ env.SCHEME }}" \
           -project "${{ env.PROJECT }}" \
-          -destination 'platform=macOS,variant=Designed for iPad'
+          -destination 'generic/platform=iOS'
 
     - name: CodeQL Analyze
       uses: github/codeql-action/analyze@v3
