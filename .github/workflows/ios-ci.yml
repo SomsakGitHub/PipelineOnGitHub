@@ -25,10 +25,12 @@ jobs:
       with:
         xcode-version: '16.2'
 
-    - name: Install iOS Platform
-      run: |
-        sudo xcodebuild -downloadPlatform iOS
-        sudo xcodebuild -runFirstLaunch
+    - name: Install iOS Simulator
+      uses: futureware-app/setup-simulator-runtime@v4
+      with:
+        action: install
+        platform: iOS
+        version: '18.2'
 
     - name: SwiftFormat Check
       run: |
