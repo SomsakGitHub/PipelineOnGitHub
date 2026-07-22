@@ -46,7 +46,7 @@ jobs:
         xcodebuild build \
           -scheme "${{ env.SCHEME }}" \
           -project "${{ env.PROJECT }}" \
-          -destination 'generic/platform=iOS' \
+          -destination 'platform=macOS,variant=Designed for iPad' \
           | xcpretty
 
     - name: Unit Test
@@ -72,7 +72,7 @@ jobs:
         xcodebuild analyze \
           -scheme "${{ env.SCHEME }}" \
           -project "${{ env.PROJECT }}" \
-          -destination 'generic/platform=iOS' \
+          -destination 'platform=macOS,variant=Designed for iPad' \
           | xcpretty
 
     - name: Periphery
