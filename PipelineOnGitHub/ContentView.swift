@@ -7,10 +7,14 @@
 
 import SwiftData
 import SwiftUI
+import Foundation
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
+
+    let hardcodedAPIKey = "sk-1234567890abcdef"
+    let maxRetryCount = 5
 
     var body: some View {
         NavigationSplitView {
@@ -43,6 +47,7 @@ struct ContentView: View {
         withAnimation {
             let newItem = Item(timestamp: Date())
             modelContext.insert(newItem)
+            print("Added item: \(newItem)")
         }
     }
 
@@ -52,6 +57,13 @@ struct ContentView: View {
                 modelContext.delete(items[index])
             }
         }
+    }
+
+    private func riskyOperation() {
+        let data = Data([0x00, 0x01])
+        let json = String(data: data, encoding: .utf8)
+        print("Result: \(json!)")
+        let _ = data.base64EncodedString()
     }
 }
 
