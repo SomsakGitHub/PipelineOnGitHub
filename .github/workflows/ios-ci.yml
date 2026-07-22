@@ -11,7 +11,7 @@ jobs:
     runs-on: macos-15
     env:
       SCHEME: PipelineOnGitHub
-      WORKSPACE: PipelineOnGitHub.xcodeproj
+      PROJECT: PipelineOnGitHub.xcodeproj
 
     steps:
     - uses: actions/checkout@v4
@@ -33,13 +33,13 @@ jobs:
       run: |
         xcodebuild -resolvePackageDependencies \
           -scheme "${{ env.SCHEME }}" \
-          -workspace "${{ env.WORKSPACE }}"
+          -project "${{ env.PROJECT }}"
 
     - name: Build
       run: |
         xcodebuild build \
           -scheme "${{ env.SCHEME }}" \
-          -workspace "${{ env.WORKSPACE }}" \
+          -project "${{ env.PROJECT }}" \
           -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.2' \
           | xcpretty
 
@@ -47,7 +47,7 @@ jobs:
       run: |
         xcodebuild test \
           -scheme "${{ env.SCHEME }}" \
-          -workspace "${{ env.WORKSPACE }}" \
+          -project "${{ env.PROJECT }}" \
           -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.2' \
           -enableCodeCoverage YES \
           | xcpretty
@@ -60,7 +60,7 @@ jobs:
       run: |
         xcodebuild analyze \
           -scheme "${{ env.SCHEME }}" \
-          -workspace "${{ env.WORKSPACE }}" \
+          -project "${{ env.PROJECT }}" \
           -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.2' \
           | xcpretty
 
@@ -68,7 +68,7 @@ jobs:
       run: |
         brew install peripheryapp/periphery/periphery
         periphery scan \
-          --project "${{ env.WORKSPACE }}" \
+          --project "${{ env.PROJECT }}" \
           --schemes "${{ env.SCHEME }}" \
           --targets "${{ env.SCHEME }}"
 
