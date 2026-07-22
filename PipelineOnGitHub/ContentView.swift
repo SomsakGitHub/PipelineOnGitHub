@@ -5,9 +5,9 @@
 //  Created by tiscomacnb2486 on 22/7/2569 BE.
 //
 
+import Foundation
 import SwiftData
 import SwiftUI
-import Foundation
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
@@ -63,7 +63,7 @@ struct ContentView: View {
         let data = Data([0x00, 0x01])
         let json = String(data: data, encoding: .utf8)
         print("Result: \(json!)")
-        let _ = data.base64EncodedString()
+        _ = data.base64EncodedString()
     }
 }
 
