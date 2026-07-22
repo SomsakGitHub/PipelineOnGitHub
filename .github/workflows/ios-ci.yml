@@ -99,7 +99,7 @@ jobs:
         xcodebuild build \
           -scheme "${{ env.SCHEME }}" \
           -project "${{ env.PROJECT }}" \
-          -destination 'generic/platform=iOS'
+          -destination 'platform=macOS,variant=Designed for iPad'
 
     - name: CodeQL Analyze
       uses: github/codeql-action/analyze@v3
