@@ -23,7 +23,7 @@ jobs:
     - name: Select Xcode
       uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: '16.0'
+        xcode-version: '16.1'
 
     - name: SwiftFormat Check
       run: |
@@ -46,7 +46,7 @@ jobs:
         xcodebuild build \
           -scheme "${{ env.SCHEME }}" \
           -project "${{ env.PROJECT }}" \
-          -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5' \
+          -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.1' \
           | xcpretty
 
     - name: Unit Test
@@ -54,7 +54,7 @@ jobs:
         xcodebuild test \
           -scheme "${{ env.SCHEME }}" \
           -project "${{ env.PROJECT }}" \
-          -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5' \
+          -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.1' \
           -enableCodeCoverage YES \
           | xcpretty
 
@@ -67,7 +67,7 @@ jobs:
         xcodebuild analyze \
           -scheme "${{ env.SCHEME }}" \
           -project "${{ env.PROJECT }}" \
-          -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5' \
+          -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.1' \
           | xcpretty
 
     - name: Periphery
@@ -94,7 +94,7 @@ jobs:
         xcodebuild build \
           -scheme "${{ env.SCHEME }}" \
           -project "${{ env.PROJECT }}" \
-          -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5'
+          -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.1'
 
     - name: CodeQL Analyze
       uses: github/codeql-action/analyze@v3
