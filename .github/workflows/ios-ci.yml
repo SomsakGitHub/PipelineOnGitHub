@@ -92,6 +92,14 @@ jobs:
       uses: github/codeql-action/init@v3
       with:
         languages: swift
+        build-mode: manual
+
+    - name: Build for CodeQL
+      run: |
+        xcodebuild build \
+          -scheme "${{ env.SCHEME }}" \
+          -project "${{ env.PROJECT }}" \
+          -destination 'generic/platform=iOS'
 
     - name: CodeQL Analyze
       uses: github/codeql-action/analyze@v3
