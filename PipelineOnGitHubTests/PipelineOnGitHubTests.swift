@@ -14,4 +14,9 @@ struct PipelineOnGitHubTests {
         // Swift Testing Documentation
         // https://developer.apple.com/documentation/testing
     }
+
+    @Test func failingTest() throws {
+        let result = 1 + 1
+        #expect(result == 3, "This test intentionally fails - 1+1 is 2, not 3")
+    }
 }
